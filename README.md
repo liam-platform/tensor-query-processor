@@ -20,12 +20,13 @@ This enables TQP to run full analytical workloads—including TPC-H—using pure
 # Single-Node TQP Architecture
 
 The single-node system is built on two foundations:
+
 ✅ Columnar tensor-based data representation  
 ✅ A four-layer compiler pipeline mapping relational operators → tensor programs
 
 ---
 
-## A. Data Representation
+## 1. Data Representation
 
 Relational tables are converted into columnar tensor format:
 
@@ -37,9 +38,7 @@ Relational tables are converted into columnar tensor format:
 
 Each column = one tensor → optimized for TCRs and vectorized execution.
 
----
-
-## B. Query Compilation Pipeline
+## 2. Query Compilation Pipeline
 
 | Layer                               | Role                                                               |
 | ----------------------------------- | ------------------------------------------------------------------ |
@@ -50,9 +49,7 @@ Each column = one tensor → optimized for TCRs and vectorized execution.
 
 Expression trees (e.g., `price * qty`) are recursively mapped to PyTorch ops (e.g. `torch.mul`).
 
----
-
-## C. Relational Operators Using Tensor APIs
+## 3. Relational Operators Using Tensor APIs
 
 All implementations strictly rely on existing TCR tensor ops:
 
@@ -77,7 +74,7 @@ TQP extends to a **data-parallel multi-GPU system**:
 
 ---
 
-## A. Computational Model
+## 1. Computational Model
 
 | Step              | Description                                     |
 | ----------------- | ----------------------------------------------- |
@@ -85,9 +82,7 @@ TQP extends to a **data-parallel multi-GPU system**:
 | Local Execution   | Each GPU processes its partitions independently |
 | MPI Launch        | All TQP nodes executed as MPI ranks             |
 
----
-
-## B. Automatic Data Exchange Insertion
+## 2. Automatic Data Exchange Insertion
 
 Compiler injects exchange operators where relational semantics require:
 
@@ -95,9 +90,7 @@ Compiler injects exchange operators where relational semantics require:
 - Before group-by
 - Final aggregation merging
 
----
-
-## C. High-Performance Data Movement
+## 3. High-Performance Data Movement
 
 Uses **HPC collective libraries**:
 
@@ -125,7 +118,7 @@ Optimized for NVLink / InfiniBand bandwidth.
 
 ---
 
-## 📌 Key Benefits
+## Key Benefits
 
 - Runtime built on ML tensor cores → massive parallelism
 - Zero rewrites needed to support multiple hardware vendors
