@@ -116,12 +116,12 @@ Optimized for NVLink / InfiniBand bandwidth.
 
 | Feature                         | Supported |
 | ------------------------------- | :-------: |
-| SQL → tensor compilation        |    ✅     |
-| Full relational algebra         |    ✅     |
-| Support for TPC-H               |    ✅     |
-| Multi-GPU execution             |    ✅     |
-| TCR portability via PyTorch ops |    ✅     |
-| Export: TorchScript / ONNX      |    ✅     |
+| SQL → tensor compilation        |           |
+| Full relational algebra         |           |
+| Support for TPC-H               |           |
+| Multi-GPU execution             |           |
+| TCR portability via PyTorch ops |           |
+| Export: TorchScript / ONNX      |           |
 
 ---
 
@@ -138,5 +138,3 @@ Optimized for NVLink / InfiniBand bandwidth.
 - Dictionary-encoded string tensors
 - Cost-based distributed planning
 - Adaptive exchange strategies for skew-heavy data
-
-## Note on Spark version
