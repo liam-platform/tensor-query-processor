@@ -1,0 +1,13 @@
+[project]
+name = "pscripts"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic>=2.11.7",
+    "pyspark>=4.0.1",
+    "pyyaml>=6.0.2",
+    "soda-core>=3.5.5",
+    "soda-core-bigquery>=3.5.5",
+]
