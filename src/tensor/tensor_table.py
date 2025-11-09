@@ -14,6 +14,9 @@ class TensorTable:
 
     def get_column(self, name: str) -> torch.Tensor:
         return self.columns[name]
+    
+    def get_all_columns(self) -> List[torch.Tensor]:
+        return list(self.columns.values())
 
     @staticmethod
     def from_dict(data: Dict[str, List], device='cpu') -> 'TensorTable':
@@ -39,4 +42,3 @@ class TensorTable:
             columns[col_name] = tensor
         
         return TensorTable(columns, schema)
-

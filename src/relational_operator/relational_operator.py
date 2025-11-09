@@ -3,12 +3,21 @@ from tensor import TensorTable
 from ir import Expression
 from expr import ExpressionCompiler
 
-from typing import List
+from typing import Dict, List
 
 
 class RelationalOperators:
     """Tensor implementations of relational operators"""
 
+    @staticmethod
+    def scan(table_name: str, tables: Dict[str, TensorTable]) -> TensorTable:
+        """Scan operation - loads table data into tensor format
+        
+        In production, this would read from file/storage and convert to tensors.
+        For now, retrieves pre-loaded TensorTable.
+        """
+        return tables[table_name]
+    
     @staticmethod
     def filter(table: TensorTable, condition: Expression) -> TensorTable:
         """Filter operation using boolean mask (bitmap-based)"""

@@ -1,7 +1,7 @@
 from ir import IRNode, OpType
 from relational_operator import RelationalOperators
 
-from typing import Dict, List, Tuple
+from typing import Callable, Dict, List, Tuple
 
 
 class TQPPlanner:
@@ -16,9 +16,10 @@ class TQPPlanner:
             OpType.SORT_JOIN: RelationalOperators.sort_merge_join,
             OpType.HASH_JOIN: RelationalOperators.hash_join,
             OpType.GROUP_BY: RelationalOperators.group_by,
+            OpType.SCAN: RelationalOperators.scan,
         }
 
-    def plan(self, ir: IRNode) -> List[Tuple[str, callable, Dict]]:
+    def plan(self, ir: IRNode) -> List[Tuple[str, Callable, Dict]]:
         """Convert IR graph to operator plan"""
         plan = []
         self._build_plan(ir, plan)
