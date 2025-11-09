@@ -63,7 +63,7 @@ These signatures are not consistently enforced.
 
 ---
 
-## Plan representation (current)
+## (Legacy) Plan representation
 
 Type: List[Tuple[str, callable, Dict]]
 
@@ -73,6 +73,8 @@ Example element:
 - ("filter", filter_func, {"condition": "<expr>"})
 
 Plan is treated as a topological list but the executor uses position and a transient `result` variable and two state slots (`current_left`, `current_right`) to manage inputs for binary joins.
+
+## (New) Plan representation
 
 ---
 
@@ -230,8 +232,6 @@ Advantages:
 
 ### Complete workflow for Filter example
 
-## **Complete Flow Diagram for Filter Query**
-
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │ INPUT: Spark Physical Plan                                  │
@@ -300,6 +300,30 @@ Advantages:
 │   l_quantity: tensor([10., 15.])                            │
 │   l_orderkey: tensor([1., 4.])                              │
 └─────────────────────────────────────────────────────────────┘
+```
+
+## Key Execution Patterns
+
+1. DFS Post-Order Traversal used in:
+
+- Layer 1: Parsing Spark plan to IR
+- Layer 3: Building operator plan from IR
+- Expression compilation
+
+2. Topological Order Execution:
+
+- Executor processes operators in order from plan
+- Outputs are wired as inputs to next operator
+
+3. Automatic Resource Management:
+
+- Unused tensors are garbage collected via Python reference counting
+- No manual memory management needed
+
+4. Dictionary-Based Dispatch:
+
+- operator_dict maps IR operators to tensor programs
+- Enables extensibility (add new operators easily)
 
 ---
 
@@ -314,4 +338,3 @@ Advantages:
 ## Closing notes
 
 The current TQPExecutor is a lightweight, sequential executor that suffices for strictly linear plans. It should be migrated to a named intermediate model and adopt a fixed operator contract to support real query shapes, robust error handling, and easier maintainability.
-```
