@@ -76,6 +76,20 @@ Plan is treated as a topological list but the executor uses position and a trans
 
 ## (New) Plan representation
 
+New explicit nodes:
+
+```
+{
+    "op": "filter",
+    "op_func": callable,
+    "inputs": ["scan_users"],
+    "output": "filtered_users",
+    "params": {...}
+}
+```
+
+> New style is preferred: it uses a named-environment model (env) and a stable operator signature: Callable[[List[TensorTable], Dict], TensorTable]. Legacy style is adapted to the new env model where possible.
+
 ---
 
 ## TQPExecutor: current execution semantics (detailed)
