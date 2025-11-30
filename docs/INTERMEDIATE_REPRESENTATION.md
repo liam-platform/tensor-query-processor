@@ -9,6 +9,22 @@ The goal is:
 - Parse Spark’s physical plan → Convert to a stable IR → Execute on another engine
 - Without copying Spark internals, but keeping enough semantic
 
+```md
+Spark Logical Plan
+        ↓
+Catalyst Optimizer
+        ↓
+Spark Physical Plan
+        ↓
+─────────────── Your Translation Layer ────────────────
+        ↓
+      IR (Intermediate Representation)
+        ↓
+  Your Engine's Physical Operators
+        ↓
+      Execution
+```
+
 ## Requirements for the IR
 A good IR should be:
 
@@ -141,3 +157,12 @@ AttributeReference
 ```
 
 Match and convert them to our representation.
+
+
+## A Smart Shortcut: Use Substrait Instead of Inventing IR
+Substrait is a standard IR made exactly for this purpose. Many engines already support Substrait. 
+
+Flow becomes:
+```sh
+Spark Physical Plan → Substrait Plan → Engine Plan → Execution
+```
