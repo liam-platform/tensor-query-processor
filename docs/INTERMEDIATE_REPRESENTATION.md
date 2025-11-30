@@ -28,9 +28,9 @@ Instead use generic operators:
 - Window (optional)
 - UDF or Function
 
-✔ Tree-structured
+✔ Graph-structured
 
-- Operators form a directed acyclic tree (DAG).
+- Operators form a directed acyclic graph (DAG).
 - Children = inputs; parent = consumer.
 
 ✔ Expression trees supported
