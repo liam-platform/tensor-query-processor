@@ -4,7 +4,8 @@ from typing import Any, Dict, List, Optional
 
 
 class OpType(Enum):
-    """TQP internal operator types"""
+    """TQP internal operator types
+    Currently it only support a minimal set of core operators."""
     SCAN = "scan"
     FILTER = "filter"
     PROJECT = "project"

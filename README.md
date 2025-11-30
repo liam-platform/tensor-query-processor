@@ -131,3 +131,4 @@ Optimized for NVLink / InfiniBand bandwidth.
 - Dictionary-encoded string tensors
 - Cost-based distributed planning
 - Adaptive exchange strategies for skew-heavy data
+- Use a canonical IR like [substrait](https://substrait.io/) (to execute queries on another engine)
