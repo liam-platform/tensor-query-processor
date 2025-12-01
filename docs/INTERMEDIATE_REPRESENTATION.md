@@ -138,26 +138,47 @@ IRAggregate(
 )
 ```
 
-*Step 4: Convert Spark expressions to your expression IR*
-Spark has expression classes like:
-```sh
-Add
-
-Multiply
-
-GreaterThan
-
-EqualTo
-
-Alias
-
-Literal
-
-AttributeReference
+*Step 4: Convert Spark expressions to our expression IR*
+Represent expressions as immutable trees
+```sql
+Expression =
+    ColumnRef(name, id)
+  | Literal(value, type)
+  | Add(left, right)
+  | Multiply(left, right)
+  | EqualTo(left, right)
+  | CaseWhen(branches, elseValue)
+  | FunctionCall(name, args)
+  | Alias(expr, name)
 ```
+Important properties:
+- Immutable
+- Pattern-matchable
+- Typed
 
-Match and convert them to our representation.
+*Step 5: Add Physical Traits to our operator IR*
 
+Spark physical operators carry traits such as:
+
+- Partitioning
+  - HashPartitioning(keys, numPartitions)
+  - RangePartitioning
+  - SinglePartition
+  - UnknownPartitioning
+
+- Ordering
+  - SortOrder(column, asc?)
+
+- Distribution
+  - required distribution (e.g., join requires matching partitioning)
+
+- Metadata
+  - estimated row count
+  - batch size
+  - memory footprint
+  - whether codegen is possible
+
+This metadata is critical for optimizers or schedulers.
 
 ## A Smart Shortcut: Use Substrait Instead of Inventing IR
 Substrait is a standard IR made exactly for this purpose. Many engines already support Substrait. 
