@@ -34,17 +34,6 @@ The executor is the runtime that wires operators together and executes a plan ag
 
 ---
 
-## Directory layout (important files)
-
-- src/planner/tqp_planner.py — planner that produces plan tuples
-- src/compiler/tqp_compiler.py — compiler that maps plan to operators
-- src/executor/tqp_executor.py — current executor implementation (focus of this doc)
-- src/relational_operator/relational_operator.py — op implementations / helpers
-- src/tensor/tensor_table.py — TensorTable type and accessors
-- src/tests/test_functionality.py — functional tests
-
----
-
 ## Core concepts and data model
 
 - TensorTable: the project's primary data structure for tabular tensor-backed data. Operators accept and return TensorTable.
